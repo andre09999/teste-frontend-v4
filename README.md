@@ -1,218 +1,142 @@
-# 🏆 Teste Frontend
+Desafio Frontend: Acompanhamento de Ativos Florestais
+Este projeto foi criado para responder aos requisitos do desafio de frontend, com foco no acompanhamento de ativos usados em atividades florestais. O objetivo é apresentar o histórico de situações e localizações dos ativos em um mapa dinâmico.
 
-![Aiko](img/aiko.png)
+Recursos Implementados
+1. Localizações dos Ativos
+Apresentação das localizações mais recentes dos ativos no mapa, empregando a Google Maps API para mostrar onde os ativos estão situados.
 
-Neste teste serão avaliados seus conhecimentos em Javascript, HTML e CSS, a criatividade e metodologia aplicada no desenvolvimento, a usabilidade e design da aplicação final.
+2. Situação Atual do Ativo
+Apresentação da situação mais recente do ativo, com indicação visual da sua cor relacionada à situação (ex: "Em Operação", "Parado", "Em Manutenção").
 
-## 🚀 O Desafio
+3. Histórico de Situações do Ativo
+Apresentação do histórico completo de situações de um ativo ao clicar nele. Cada situação é mostrada com a data e o nome da situação (e sua respectiva cor).
 
-Você é o desenvolvedor frontend de uma empresa que coleta dados de equipamentos utilizados em uma operação florestal. Dentre esses dados estão o histórico de posições e estados desses equipamentos. O estado de um equipamento é utilizado para saber o que o equipamento estava fazendo em um determinado momento, seja *Operando*, *Parado* ou em *Manutenção*. O estado é alterado de acordo com o uso do equipamento na operação, já a posição do equipamento é coletada através do GPS e é enviada e armazenada de tempo em tempo pela aplicação.
+4. Cálculo de Desempenho
+O desempenho de um ativo é medido com base nas horas em operação versus o total de horas. A fórmula utilizada é:
 
-Seu objetivo é, de posse desses dados, desenvolver o frontend de aplicação web que trate e exibida essas informações para os gestores da operação.
+Desempenho
+=
+Horas Em Operação
+Horas Totais
+×
+100
+Desempenho=
+Horas Totais
+Horas Em Operação
+​
+×100
+5. Cálculo de Lucro Estimado
+O lucro estimado do ativo é medido com base no valor gerado por hora em cada situação (em operação, em manutenção, etc.), considerando o tempo gasto em cada situação.
 
-## 🎯 Requisitos
+6. Histórico de Localizações
+O histórico de localizações de cada ativo é exibido no mapa, possibilitando a visualização do caminho percorrido.
 
-Esses requisitos são obrigatórios e devem ser desenvolvidos para a entrega do teste.
+Organização do Projeto
+1. Componentes
+Mapa: Apresenta informações detalhadas sobre o ativo selecionado (desempenho, horas trabalhadas, lucro estimado, situação atual) e o mapa com o histórico de localizações.
 
-* **Posições dos equipamentos**: Exibir no mapa os equipamentos nas suas posições mais recentes.
+HistoricoLocalizacoes: Apresenta o histórico de situações e localizações de um ativo.
 
-* **Estado atual do equipamento**: Visualizar o estado mais recente dos equipamentos. Exemplo: mostrando no mapa, como um pop-up, mouse hover sobre o equipamento, etc.
+2. Hooks
+useEstadoDoAtivo: Gerencia o estado geral dos ativos, incluindo filtros e estados.
 
-* **Histórico de estados do equipamento**: Permitir a visualização do histórico de estados de um equipamento específico ao clicar sobre o equipamento.
+useAtivosFiltradosHook: Possibilita filtrar os ativos por situação e modelo.
 
-## 🎲 Dados
+3. Funções Utilitárias
+calcularDesempenho: Calcula o desempenho de um ativo.
 
-Todos os dados que precisa para desenvolver os requisitos estão na pasta `data/` no formato `json` e são detalhados a seguir.
+calcularLucro: Calcula o lucro do ativo com base no valor por hora e tempo gasto em cada situação.
 
-```sh
-data/
-|- equipment.json
-|- equipmentModel.json
-|- equipmentPositionHistory.json
-|- equipmentState.json
-|- equipmentStateHistory.json
+buscarDados: Função para obter os dados dos ativos, incluindo situações, histórico de localizações e valores de lucro.
+
+4. Tipos de Dados
+Ativo: Representa um ativo, com informações como nome, modelo, situação e histórico de localizações.
+
+EstadoDoAtivo: Representa uma situação do ativo, como "Em Operação" ou "Em Manutenção", com sua cor relacionada.
+
+HistoricoDeLocalizacoes: Contém o histórico de localizações do ativo, incluindo latitudes, longitudes e datas.
+
+Tecnologias Usadas
+React: Biblioteca para a construção da interface do usuário.
+
+Google Maps API: Para mostrar o mapa e exibir as localizações dos ativos.
+
+TypeScript: Usado para garantir a tipagem forte e evitar erros no desenvolvimento.
+
+CSS: Para estilização e construção da interface.
+
+React Context: Para gerenciar o estado geral da aplicação.
+
+Biblioteca de Componentes (Bootstrap): Para construção de UI com componentes prontos e responsivos.
+
+Como Executar o Projeto
+Instalação das Dependências
+
+Clone o repositório e instale as dependências necessárias:
+
+bash
+Copiar
+Editar
+git clone <URL_DO_REPOSITÓRIO>
+
+Entre na pasta do projeto com:
+
+```bash
+cd
 ```
 
-### equipment.json
-Contém todos os equipamentos da aplicação.
+Depois, instale as dependências:
 
-```JSONC
-[
-    {
-        // Identificador único do equipamento
-        "id": "a7c53eb1-4f5e-4eba-9764-ad205d0891f9",
-        // Chave estrangeira, utilizada para referenciar de qual modelo é esse equipamento 
-        "equipmentModelId": "a3540227-2f0e-4362-9517-92f41dabbfdf",
-        // Nome do Equipamento
-        "name": "CA-0001"
-    },
-    // ...
-]
+```bash
+npm install
 ```
 
-### equipmentState.json
-Contém todos os estados dos equipamentos.
+Iniciando o Servidor
 
-```JSONC
-[
-    {
-        // Identificador único do estado de equipamento
-        "id": "0808344c-454b-4c36-89e8-d7687e692d57",
-        // Nome do estado
-        "name": "Operando",
-        // Cor utilizada para representar o estado
-        "color": "#2ecc71"
-    },
-    // ...
-]
+Para rodar o projeto no modo de desenvolvimento:
+
+```bash
+npm start
 ```
 
-### equipmentModel.json
-Contém todos os modelos de equipamento e a informação de qual é o valor por hora do equipamento em cada um dos estados.
+Abrindo o App
 
-```JSONC
-[
-    {
-        // Identificador único do modelo de equipamento
-        "id": "a3540227-2f0e-4362-9517-92f41dabbfdf",
-        // Nome do modelo de equipamento
-        "name": "Caminhão de carga",
-        // Valor gerado por hora para cada estado
-        "hourlyEarnings": [
-            {
-                // Chave estrangeira, utilizada para referenciar de qual valor é esse estado
-                "equipmentStateId": "0808344c-454b-4c36-89e8-d7687e692d57",
-                // Valor gerado por hora nesse estado
-                "value": 100
-            },
-            // ...
-        ]
-    },
-    // ...
-]
-```
+Abra o app no seu navegador acessando: `http://localhost:3000`.
 
-### equipmentStateHistory.json
-O histórico de estados por equipamento.
+Organização dos Dados
 
-```JSONC
-[
-    {
-        // Chave estrangeira, utilizada para referenciar de qual equipamento são esses estados
-        "equipmentId": "a7c53eb1-4f5e-4eba-9764-ad205d0891f9",
-        // Histórico de estados do equipamento
-        "states": [
-            {
-                // Data em que o equipamento declarou estar nesse estado
-                "date": "2021-02-01T03:00:00.000Z",
-                // Chave estrangeira, utilizada para referenciar qual é o estado
-                // que o equipamento estava nesse momento
-                "equipmentStateId": "03b2d446-e3ba-4c82-8dc2-a5611fea6e1f"
-            },
-            // ...
-        ]
-    },
-    // ...
-]
-```
+Os dados estão em JSON, estruturados assim:
 
-### equipmentPositionHistory.json
-O histórico de posições dos equipamentos.
+* `equipment.json`: Lista de equipamentos com ID e modelo.
+* `equipmentState.json`: Estados dos equipamentos (ex: "Operando").
+* `equipmentModel.json`: Modelos e valores por hora.
+* `equipmentStateHistory.json`: Histórico de estados.
+* `equipmentPositionHistory.json`: Histórico de posições (latitude/longitude).
 
-```JSONC
-[
-    {
-        // Chave estrangeira, utilizada para referenciar de qual equipamento são esses estados
-        "equipmentId": "a7c53eb1-4f5e-4eba-9764-ad205d0891f9",
-        // Posições do equipamento
-        "positions": [
-            {   
-                // Data em que a posição foi registrada
-                "date": "2021-02-01T03:00:00.000Z",
-                // Latitude WGS84
-                "lat": -19.126536,
-                // Longitude WGS84
-                "lon": -45.947756
-            },
-            // ...
-        ]
-    },
-    // ...
-]
-```
+Opções Técnicas
 
-## 🛠️ Regras do Teste
-### ✅ O que é permitido
+Usamos a Google Maps API para o mapa por ser confiável.
 
-* Vue, React e Angular.
+TypeScript foi escolhido para mais segurança no código.
 
-* Typescript.
+React foi escolhido por ser flexível e bom para interfaces.
 
-* Bibliotecas de componentes (Element-ui, Vuetify, Bootstrap, etc.)
+Os componentes foram divididos para serem reutilizáveis, facilitando o futuro.
 
-* Bibliotecas e APIs de Mapas (Leaflet, Openlayers, Google Maps API, etc).
+Funcionalidades Extras
 
-* Template engines (Pug, Ejs, etc).
+* Filtros: Para ver equipamentos por estado e modelo.
+* Pesquisa: Para achar um equipamento pelo nome.
+* Visualização: Equipamentos diferentes são mostrados de formas diferentes no mapa.
 
-* Gerenciamento de estado (Vuex, Redux, etc).
+Testes Automatizados
 
-* Frameworks CSS (Tailwind, Bulma, Bootstrap, Materialize, etc).
+Testes com Jest e React Testing Library garantem a qualidade:
 
-* Pré-processadores CSS (SCSS, SASS, LESS, etc).
+* Cálculo de produtividade.
+* Renderização dos componentes.
+* Comportamento ao clicar e ver o histórico.
 
-* Frameworks baseados em Vue (Nuxt.js, Quasar, etc).
+Sobre a Documentação
 
-* Qualquer tecnologia complementar as citadas anteriormente são permitidas desde que seu uso seja justificável.
-
-### ❌ O que não é permitido
-
-* Utilizar componentes ou códigos de terceiros que implementem algum dos requisitos.
-
-## 💡 Recomendações
-
-* **Linter**: Desenvolva o projeto utilizando algum padrão de formatação de código.
-
-## 🌟 Extras
-
-Aqui são listados algumas sugestões para você que quer ir além do desafio inicial. Lembrando que você não precisa se limitar a essas sugestões, se tiver pensado em outra funcionalidade que considera relevante ao escopo da aplicação fique à vontade para implementá-la.
-
-* **Filtros**: Filtrar as visualizações por estado atual ou modelo de equipamento.
-
-* **Pesquisa**: Ser possível pesquisar por dados de um equipamento especifico.
-
-* **Percentual de Produtividade do equipamento**: Calcular a produtividade do equipamento, que consiste em uma relação das horas produtivas (em estado "Operando") em relação ao total de horas. Exemplo se um equipamento teve 18 horas operando no dia a formula deve ser `18 / 24 * 100 = 75% de produtividade`.
-
-* **Ganho por equipamento**: Calcular o ganho do equipamento com base no valor recebido por hora informado no Modelo de Equipamento. Exemplo se um modelo de equipamento gera 100 por hora em operando e -20 em manutenção, então se esse equipamento ficou 10 horas em operação e 4 em manutenção ele gerou `10 * 100 + 4 * -20 = 920`.
-
-* **Diferenciar os equipamentos**: Diferenciar visualmente os equipamentos por modelo de equipamento na visualização do mapa.
-
-* **Histórico de posições**: Que seja possível visualizar o histórico de posições de um equipamento, mostrando o trajeto realizado por ele.
-
-* **Testes**: Desenvolva testes que achar necessário para a aplicação, seja testes unitários, testes automatizados, testes de acessibilidade, etc.
-
-* **Documentação**: Gerar uma documentação da aplicação. A documentação pode incluir detalhes sobre as decisões tomadas, especificação dos componentes desenvolvidos, instruções de uso dentre outras informações que achar relevantes.
-
-## Entregas
-
-Para realizar a entrega do teste você deve:
-
-1. Relizar o fork e clonar esse repositório para sua máquina.
-2. Crie uma branch com seu nome no seguinte formato:
-    - `teste/[NOME]`
-    - `[NOME]`: Seu nome.
-    - Exemplos: `teste/fulano-da-silva`; `teste/beltrano-primeiro-gomes`.
-3. Implemente sua solução e faça commit das alterações.
-4. Grave um vídeo explicando sua solução. O vídeo deve:
-    - Mostrar a aplicação em funcionamento
-    - Explicar as decisões técnicas adotadas
-    - Comentar sobre desafios enfrentados e como foram resolvidos
-    - O link do vídeo deve estar no Pull Request ou no README.md do projeto (pode ser não listado no YouTube ou um link compartilhável no Google Drive)
-5. Crie um Pull Request para este repositório com sua branch.
-  
-## 📌 Considerações
-- Você pode utilizar qualquer tecnologia adicional ou abordagem diferente, desde que justifique sua escolha no README.md.
-- A organização, legibilidade e boas práticas no desenvolvimento serão avaliadas, então priorize código limpo, modular e bem documentado.
-- Dúvidas? Caso tenha qualquer dúvida sobre o teste, fique à vontade para perguntar!
-
-
-**📩 Boa sorte! Estamos ansiosos para ver seu código e sua apresentação! 🚀**
+A documentação explica as decisões, estrutura e uso.

@@ -1,105 +1,92 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import {getMarkerIcon, fetchData, calculateProductivity, filteredEquipments} from '../utils/utils';
+import { useEquipmentState } from './../utils/useEquipmentState';
+import Map from '../components/map';
+import Filtered from '../components/filtered';
+import Informs from '../components/Informs';
+import "../index.css"
 const containerStyle = {
   width: '60vw',
   height: '60vh',
 };
 
 const Home: React.FC = () => {
-  const [positions, setPositions] = useState<any[]>([]);
-  const [currentState, setCurrentState] = useState<string>('');
-  const [stateHistory, setStateHistory] = useState<any[]>([]);
-  const [selectedPosition, setSelectedPosition] = useState<any | null>(null);
+  const {
+    equipments,
+    setEquipments,
+    selectedEquipment,
+    setSelectedEquipment,
+    setEquipmentModels,
+    equipmentStates,
+    setEquipmentStates,
+    selectedStateFilter,
+    setSelectedStateFilter,
+    selectedDate,
+    setSelectedDate,
+    availableDates,
+    setAvailableDates,
+    selectedEquipmentFilter,
+    setSelectedEquipmentFilter
+  } = useEquipmentState();
+ 
 
   useEffect(() => {
-    fetch('/data/equipmentPositionHistory.json')
-      .then((response) => response.json())
-      .then((data) => {
-        const equipment = data[0]; 
-        setPositions(equipment.positions);
-      });
-  }, []);
+    const loadData = async () => {
+      const { updatedEquipments, modelData, stateData, allDates } = await fetchData();
 
-  useEffect(() => {
-    fetch('/data/equipmentStateHistory.json')
-      .then((response) => response.json())
-      .then((data) => {
-        const equipmentState = data.find((item: { equipmentId: string; }) => item.equipmentId === 'a7c53eb1-4f5e-4eba-9764-ad205d0891f9');
-        if (equipmentState) {
-          const latestStateId = equipmentState.states[equipmentState.states.length - 1].equipmentStateId;
-          fetch('/data/equipmentState.json')
-            .then((stateResponse) => stateResponse.json())
-            .then((stateData) => {
-              const currentStateData = stateData.find((state: { id: any; }) => state.id === latestStateId);
-              if (currentStateData) {
-                setCurrentState(currentStateData.name);
-              }
-            });
-        }
-      });
-  }, []);
+      setEquipments(updatedEquipments);
+      setEquipmentModels(modelData);
+      setEquipmentStates(stateData);
+      setAvailableDates(allDates);
+    };
 
-  const handleMarkerClick = (position: any) => {
-    setSelectedPosition(position);
+    loadData();
+  }, [setEquipments, setEquipmentModels, setEquipmentStates, setAvailableDates]);
 
-    fetch('/data/equipmentStateHistory.json')
-      .then((response) => response.json())
-      .then((data) => {
-        const equipmentState = data.find((item: { equipmentId: string; }) => item.equipmentId === 'a7c53eb1-4f5e-4eba-9764-ad205d0891f9');
-        if (equipmentState) {
-          setStateHistory(equipmentState.states);
-        }
-      });
+ 
+  const handleMarkerClick = (equipment: string) => {
+    setSelectedEquipment(equipment);
   };
 
-  const center = {
-    lat: -19.126536,
-    lng: -45.947756,
-  };
-
+  
   return (
-    <div className="container mt-5" id="centralizar" style={{ width: '80vw', margin: '0 auto' }}>
-      <h1 className="text-center mb-4">Sistema de Monitoramento de Equipamentos Florestais</h1>
-      <p className="lead text-center">
-        Este sistema permite o monitoramento das posições e estados de equipamentos utilizados em operações florestais.
-        Acompanhe em tempo real as posições, estados e histórico de cada equipamento.
-      </p>
+    <div id="centralizar" >
+      <Filtered equipments={equipments} equipmentStates={equipmentStates} availableDates={availableDates} setSelectedDate={setSelectedDate} setSelectedStateFilter={setSelectedStateFilter} setSelectedEquipmentFilter={setSelectedEquipmentFilter} selectedEquipmentFilter={selectedEquipmentFilter} selectedDate={selectedDate} selectedStateFilter={ selectedStateFilter} />
 
       <LoadScript googleMapsApiKey="">
-        <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={13}>
-          {positions.map((position, index) => (
-            <Marker
-              key={index}
-              position={{ lat: position.lat, lng: position.lon }}
-              title={`Posição: ${position.date} - Estado: ${currentState}`}
-              onClick={() => handleMarkerClick(position)}
-            />
-          ))}
+        <GoogleMap mapContainerStyle={containerStyle} center={{ lat: -19.126536, lng: -45.947756 }} zoom={13}>
+        {filteredEquipments(equipments, selectedEquipmentFilter, selectedStateFilter, selectedDate).map((equipment: any, index: number) => (
+          <Marker
+            key={index}
+            position={{ lat: equipment.lastPosition.lat, lng: equipment.lastPosition.lon }}
+            title={`${equipment.name} - ${equipment.model}`}
+            onClick={() => handleMarkerClick(equipment)}
+            icon={getMarkerIcon(equipment)}
+          />
+        ))}
 
-          {selectedPosition && (
+          {selectedEquipment && (
             <InfoWindow
-              position={{ lat: selectedPosition.lat, lng: selectedPosition.lon }}
-              onCloseClick={() => setSelectedPosition(null)}
+              position={{ lat: selectedEquipment.lastPosition.lat, lng: selectedEquipment.lastPosition.lon }}
+              onCloseClick={() => setSelectedEquipment(null)}
             >
-              <div>
-                <h3>Posição: {selectedPosition.date}</h3>
-                <p><strong>Estado Atual:</strong> {currentState}</p>
-                <h5>Histórico de Estados:</h5>
-                <ul>
-                  {stateHistory.map((state, index) => (
-                    <li key={index}>
-                      {new Date(state.date).toLocaleString()} - Estado: {state.equipmentStateId}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <Map selectedEquipment={selectedEquipment}/>
             </InfoWindow>
           )}
         </GoogleMap>
       </LoadScript>
-    </div>
+ 
+      <Informs 
+        equipments={equipments} 
+        selectedEquipmentFilter={selectedEquipmentFilter} 
+        selectedStateFilter={selectedStateFilter} 
+        filteredEquipments={filteredEquipments} 
+        selectedDate={selectedDate} 
+        calculateProductivity={calculateProductivity} 
+        />
+        </div>
   );
 };
 
