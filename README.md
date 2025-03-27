@@ -14,6 +14,8 @@ Apresentação do histórico completo de situações de um ativo ao clicar nele.
 4. Cálculo de Desempenho
 O desempenho de um ativo é medido com base nas horas em operação versus o total de horas. A fórmula utilizada é:
 
+5. Cálculo de Lucro Estimado
+O lucro estimado do ativo é medido com base no valor gerado por hora em cada situação (em operação, em manutenção, etc.), considerando o tempo gasto em cada situação.
 Desempenho
 =
 Horas Em Operação
@@ -26,8 +28,7 @@ Horas Em Operação
 ​
 ×
 100
-5. Cálculo de Lucro Estimado
-O lucro estimado do ativo é medido com base no valor gerado por hora em cada situação (em operação, em manutenção, etc.), considerando o tempo gasto em cada situação.
+
 
 6. Histórico de Localizações
 O histórico de localizações de cada ativo é exibido no mapa, possibilitando a visualização do caminho percorrido.
