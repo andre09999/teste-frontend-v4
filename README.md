@@ -24,7 +24,8 @@ Desempenho=
 Horas Totais
 Horas Em Operação
 ​
-×100
+×
+100
 5. Cálculo de Lucro Estimado
 O lucro estimado do ativo é medido com base no valor gerado por hora em cada situação (em operação, em manutenção, etc.), considerando o tempo gasto em cada situação.
 
