@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEquipmentState } from './useEquipmentState';
-
 import cargaFuncionando from '../assets/cargaFuncionando.png';
 import cargaParado from '../assets/cargaParado.png';
 import cargaManutencao from '../assets/cargaManutencao.png';
@@ -10,7 +10,7 @@ import GarraFuncionando from '../assets/garraFuncionando.png';
 import GarraParada from '../assets/garraParada.png';
 import GarraManutencao from '../assets/garraManutencao.png';
 
-// Tipos para os equipamentos
+
 interface EquipmentStateHistory {
   date: string;
   equipmentStateId: string;
@@ -31,11 +31,6 @@ interface HourlyEarnings {
   value: number;
 }
 
-interface EquipmentModel {
-  id: string;
-  hourlyEarnings?: { equipmentStateId: string; value: number }[];
-}
-
 interface Equipment {
   id: string;
   name: string;
@@ -43,11 +38,6 @@ interface Equipment {
   lastState: EquipmentState;
   stateHistory: EquipmentStateHistory[];
   modelHourlyEarnings?: HourlyEarnings[];
-}
-// Tipos para as respostas das funções
-interface ProductivityResult {
-  productivity: number;
-  hoursWorked: number;
 }
 
 interface GainResult {
@@ -138,6 +128,7 @@ export const fetchData = async () => {
     modelData,
     stateData,
     allDates: Array.from(allDates),
+    
   };
 };
 

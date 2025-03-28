@@ -1,33 +1,37 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
-#centralizar{
+/* Home.css */
+#centralizar {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+  padding: 20px;
 }
 
-.productivity{
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  flex-direction: column;
+.map-container {
+  width: 60vw;
+  height: 60vh;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.dados{
+.filtered-container {
+  margin-bottom: 20px;
+  width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
+}
+
+.info-window {
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  .map-container {
+    width: 90vw;
+    height: 50vh;
+  }
 }

@@ -1,142 +1,161 @@
-Desafio Frontend: Acompanhamento de Ativos Florestais
-Este projeto foi criado para responder aos requisitos do desafio de frontend, com foco no acompanhamento de ativos usados em atividades florestais. O objetivo é apresentar o histórico de situações e localizações dos ativos em um mapa dinâmico.
+# Desafio Frontend: Acompanhamento de Ativos Florestais
 
-Recursos Implementados
-1. Localizações dos Ativos
-Apresentação das localizações mais recentes dos ativos no mapa, empregando a Google Maps API para mostrar onde os ativos estão situados.
+Este projeto foi desenvolvido como parte do desafio de frontend, com foco no acompanhamento de ativos florestais. O objetivo principal é fornecer uma plataforma interativa para visualizar e gerenciar ativos utilizados em atividades florestais, exibindo informações de localização e histórico das situações dos ativos em um mapa dinâmico.
 
-2. Situação Atual do Ativo
-Apresentação da situação mais recente do ativo, com indicação visual da sua cor relacionada à situação (ex: "Em Operação", "Parado", "Em Manutenção").
+## 🚀 Funcionalidades Implementadas
 
-3. Histórico de Situações do Ativo
-Apresentação do histórico completo de situações de um ativo ao clicar nele. Cada situação é mostrada com a data e o nome da situação (e sua respectiva cor).
+### Localizações dos Ativos
+Utilização da **Google Maps API** para mostrar as localizações mais recentes dos ativos diretamente no mapa.
 
-4. Cálculo de Desempenho
-O desempenho de um ativo é medido com base nas horas em operação versus o total de horas. A fórmula utilizada é:
+### Situação Atual do Ativo
+Exibição da situação mais recente do ativo, com uma **indicação visual de cores** associadas às situações (ex: "Em Operação", "Parado", "Em Manutenção").
 
-Desempenho
-=
-Horas Em Operação
-Horas Totais
-×
-100
-Desempenho=
-Horas Totais
-Horas Em Operação
-​
-×100
-5. Cálculo de Lucro Estimado
-O lucro estimado do ativo é medido com base no valor gerado por hora em cada situação (em operação, em manutenção, etc.), considerando o tempo gasto em cada situação.
+### Histórico de Situações
+Ao clicar em um ativo, é possível visualizar o **histórico completo de situações** com a data e a descrição de cada situação, incluindo sua cor associada.
 
-6. Histórico de Localizações
-O histórico de localizações de cada ativo é exibido no mapa, possibilitando a visualização do caminho percorrido.
+### Cálculo de Desempenho
+O desempenho de um ativo é calculado com base nas **horas em operação** versus o total de horas disponíveis. A fórmula utilizada é:
 
-Organização do Projeto
-1. Componentes
-Mapa: Apresenta informações detalhadas sobre o ativo selecionado (desempenho, horas trabalhadas, lucro estimado, situação atual) e o mapa com o histórico de localizações.
+```markdown
+Desempenho = (Horas Em Operação / Horas Totais) × 100
+```
 
-HistoricoLocalizacoes: Apresenta o histórico de situações e localizações de um ativo.
+### Cálculo de Lucro Estimado
+O lucro estimado é calculado levando em conta o **tempo gasto** em cada situação do ativo e o **valor gerado por hora** em cada estado.
 
-2. Hooks
-useEstadoDoAtivo: Gerencia o estado geral dos ativos, incluindo filtros e estados.
+### Histórico de Localizações
+Exibição do **histórico de localizações** de cada ativo no mapa, permitindo que o usuário visualize o caminho percorrido ao longo do tempo.
 
-useAtivosFiltradosHook: Possibilita filtrar os ativos por situação e modelo.
+---
 
-3. Funções Utilitárias
-calcularDesempenho: Calcula o desempenho de um ativo.
+## 🏗️ Organização do Projeto
 
-calcularLucro: Calcula o lucro do ativo com base no valor por hora e tempo gasto em cada situação.
+### Componentes
 
-buscarDados: Função para obter os dados dos ativos, incluindo situações, histórico de localizações e valores de lucro.
+#### Mapa
+Exibe informações detalhadas sobre o ativo selecionado (desempenho, horas trabalhadas, lucro estimado, situação atual) e o mapa com o histórico de localizações.
 
-4. Tipos de Dados
-Ativo: Representa um ativo, com informações como nome, modelo, situação e histórico de localizações.
+#### HistoricoLocalizacoes
+Apresenta o histórico de situações e localizações de um ativo específico, permitindo fácil navegação pelas mudanças ao longo do tempo.
 
-EstadoDoAtivo: Representa uma situação do ativo, como "Em Operação" ou "Em Manutenção", com sua cor relacionada.
+### Hooks
 
-HistoricoDeLocalizacoes: Contém o histórico de localizações do ativo, incluindo latitudes, longitudes e datas.
+#### useEstadoDoAtivo
+Gerencia o estado geral dos ativos, incluindo os filtros de situação e modelo.
 
-Tecnologias Usadas
-React: Biblioteca para a construção da interface do usuário.
+#### useAtivosFiltradosHook
+Permite filtrar os ativos por situação (ex: "Em Operação", "Em Manutenção") e modelo (ex: "Modelo X").
 
-Google Maps API: Para mostrar o mapa e exibir as localizações dos ativos.
+### Funções Utilitárias
 
-TypeScript: Usado para garantir a tipagem forte e evitar erros no desenvolvimento.
+#### calcularDesempenho
+Calcula o desempenho de um ativo com base nas horas em operação e o total de horas disponíveis.
 
-CSS: Para estilização e construção da interface.
+#### calcularLucro
+Calcula o lucro do ativo considerando o valor por hora e o tempo gasto em cada situação.
 
-React Context: Para gerenciar o estado geral da aplicação.
+#### buscarDados
+Função responsável por buscar os dados dos ativos, incluindo o histórico de localizações e situações.
 
-Biblioteca de Componentes (Bootstrap): Para construção de UI com componentes prontos e responsivos.
+### Tipos de Dados
 
-Como Executar o Projeto
-Instalação das Dependências
+#### Ativo
+Representa um ativo, contendo informações como nome, modelo, situação atual e histórico de localizações.
 
+#### EstadoDoAtivo
+Representa uma situação do ativo, como "Em Operação" ou "Em Manutenção", com a cor associada a essa situação.
+
+#### HistoricoDeLocalizacoes
+Contém o histórico de localizações do ativo, com dados de latitude, longitude e datas.
+
+---
+
+## 🔧 Tecnologias Usadas
+
+### React
+Biblioteca principal utilizada para construção da interface de usuário, garantindo alta performance e reatividade.
+
+### Google Maps API
+Usada para mostrar o mapa e exibir as localizações dos ativos, proporcionando uma visualização precisa e interativa.
+
+### TypeScript
+Utilizado para garantir a tipagem forte e evitar erros comuns durante o desenvolvimento, garantindo mais segurança no código.
+
+### CSS
+Usado para a estilização e construção da interface, oferecendo uma aparência visual limpa e moderna.
+
+### React Context
+Para gerenciar o estado global da aplicação de forma eficiente e modular.
+
+### Biblioteca de Componentes (Bootstrap)
+Utilizada para criar uma interface responsiva e de fácil utilização, com componentes prontos e altamente configuráveis.
+
+---
+
+## ⚙️ Como Executar o Projeto
+
+### Instalação das Dependências
 Clone o repositório e instale as dependências necessárias:
 
-bash
-Copiar
-Editar
+```bash
 git clone <URL_DO_REPOSITÓRIO>
-
-Entre na pasta do projeto com:
-
-```bash
-cd
 ```
 
-Depois, instale as dependências:
-
-```bash
-npm install
-```
-
-Iniciando o Servidor
-
+### Iniciando o Servidor
 Para rodar o projeto no modo de desenvolvimento:
 
 ```bash
 npm start
 ```
 
-Abrindo o App
+Abra o aplicativo no seu navegador acessando: [http://localhost:3000](http://localhost:3000).
 
-Abra o app no seu navegador acessando: `http://localhost:3000`.
+---
 
-Organização dos Dados
+## 📊 Organização dos Dados
 
-Os dados estão em JSON, estruturados assim:
+Os dados são estruturados em arquivos **JSON**, com a seguinte organização:
 
-* `equipment.json`: Lista de equipamentos com ID e modelo.
-* `equipmentState.json`: Estados dos equipamentos (ex: "Operando").
-* `equipmentModel.json`: Modelos e valores por hora.
-* `equipmentStateHistory.json`: Histórico de estados.
-* `equipmentPositionHistory.json`: Histórico de posições (latitude/longitude).
+### equipment.json
+Lista de equipamentos com ID e modelo.
 
-Opções Técnicas
+### equipmentState.json
+Estados dos equipamentos (ex: "Em Operação", "Em Manutenção").
 
-Usamos a Google Maps API para o mapa por ser confiável.
+### equipmentModel.json
+Modelos dos equipamentos e seus valores por hora.
 
-TypeScript foi escolhido para mais segurança no código.
+### equipmentStateHistory.json
+Histórico das mudanças de estados dos ativos.
 
-React foi escolhido por ser flexível e bom para interfaces.
+### equipmentPositionHistory.json
+Histórico das localizações (latitude/longitude) dos ativos.
 
-Os componentes foram divididos para serem reutilizáveis, facilitando o futuro.
+---
 
-Funcionalidades Extras
+## 🛠️ Decisões Técnicas
 
-* Filtros: Para ver equipamentos por estado e modelo.
-* Pesquisa: Para achar um equipamento pelo nome.
-* Visualização: Equipamentos diferentes são mostrados de formas diferentes no mapa.
+### Google Maps API
+Optei pela **Google Maps API** devido à sua confiabilidade e vasta documentação, o que permite uma integração fácil e eficiente com mapas dinâmicos.
 
-Testes Automatizados
+### TypeScript
+Escolhi o **TypeScript** para garantir uma maior segurança no código, evitando erros durante o desenvolvimento e garantindo melhor escalabilidade para o projeto.
 
-Testes com Jest e React Testing Library garantem a qualidade:
+### React
+A biblioteca **React** foi escolhida por ser altamente flexível, eficiente na criação de interfaces interativas e oferecer uma excelente experiência de usuário.
 
-* Cálculo de produtividade.
-* Renderização dos componentes.
-* Comportamento ao clicar e ver o histórico.
+### Componentes Reutilizáveis
+A estrutura foi organizada para criar **componentes reutilizáveis**, o que facilita a manutenção do código e futuras expansões.
 
-Sobre a Documentação
+---
 
-A documentação explica as decisões, estrutura e uso.
+## 🧑‍💻 Funcionalidades Extras
+
+### Filtros
+Permite que o usuário filtre os ativos por estado (ex: "Em Operação", "Em Manutenção") e modelo.
+
+### Pesquisa
+Função de pesquisa para encontrar um equipamento pelo nome.
+
+### Visualização no Mapa
+Equipamentos são exibidos de maneira distinta no mapa, facilitando a visualização e diferenciação entre eles.

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect } from 'react';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -34,7 +35,7 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     const loadData = async () => {
-      const { updatedEquipments, modelData, stateData, allDates } = await fetchData();
+      const { updatedEquipments, modelData, stateData, allDates,   } = await fetchData();
 
       setEquipments(updatedEquipments);
       setEquipmentModels(modelData);
@@ -42,7 +43,7 @@ const Home: React.FC = () => {
       setAvailableDates(allDates);
     };
 
-    loadData();
+     loadData();
   }, [setEquipments, setEquipmentModels, setEquipmentStates, setAvailableDates]);
 
  
@@ -72,7 +73,7 @@ const Home: React.FC = () => {
               position={{ lat: selectedEquipment.lastPosition.lat, lng: selectedEquipment.lastPosition.lon }}
               onCloseClick={() => setSelectedEquipment(null)}
             >
-              <Map selectedEquipment={selectedEquipment}/>
+              <Map selectedEquipment={selectedEquipment} />
             </InfoWindow>
           )}
         </GoogleMap>

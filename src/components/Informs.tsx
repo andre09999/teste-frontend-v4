@@ -1,7 +1,7 @@
 import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import "../styles/informs.css"; // Certifique-se de importar o arquivo de CSS
 
 interface EquipmentStateHistory {
   date: string;
@@ -18,14 +18,10 @@ interface EquipmentState {
   name: string;
   color: string;
 }
+
 interface HourlyEarnings {
   equipmentStateId: string;
   value: number;
-}
-
-interface EquipmentModel {
-  id: string;
-  hourlyEarnings?: { equipmentStateId: string; value: number }[];
 }
 
 interface Equipment {
@@ -36,16 +32,6 @@ interface Equipment {
   stateHistory: EquipmentStateHistory[];
   modelHourlyEarnings?: HourlyEarnings[];
 }
-// Tipos para as respostas das funções
-interface ProductivityResult {
-  productivity: number;
-  hoursWorked: number;
-}
-
-interface GainResult {
-  totalGain: number;
-}
-
 
 interface InformsProps {
   filteredEquipments: (equipments: Equipment[], selectedEquipmentFilter: string, selectedStateFilter: string) => Equipment[];
@@ -81,27 +67,33 @@ const Informs: React.FC<InformsProps> = ({
     <div className="productivity">
       <h3>Produtividade de Todos os Equipamentos</h3>
       <div className="dados">
-      <ul>
-        {equipmentData.map((equipment) => (
-          <li key={equipment.name}>
-            <strong>{equipment.name}</strong>: {equipment.productivity}% - {equipment.hoursWorked} horas trabalhadas
-          </li>
-        ))}
-      </ul>
+        <div className="informacoes">
+          <ul>
+            {equipmentData.map((equipment) => (
+              <li key={equipment.name}>
+                <strong>{equipment.name}</strong>: 
+                <span>{equipment.productivity}%</span> - 
+                <span>{equipment.hoursWorked} horas trabalhadas</span>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-        <ResponsiveContainer width="70%" height={300}>
-          <BarChart data={equipmentData}>
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="productivity" fill="#2ecc71" name="Produtividade (%)" />
-            <Bar dataKey="hoursWorked" fill="#f1c40f" name="Horas Trabalhadas" />
-          </BarChart>
-        </ResponsiveContainer>
-
+        <div className="recharts-wrapper">
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={equipmentData}>
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="productivity" fill="#2ecc71" name="Produtividade (%)" />
+              <Bar dataKey="hoursWorked" fill="#f1c40f" name="Horas Trabalhadas" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
       </div>
-      </div>
+    </div>
   );
 };
+
 export default Informs;

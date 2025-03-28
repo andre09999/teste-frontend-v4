@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import React from 'react';
 import { useEquipmentState } from './../utils/useEquipmentState';
 import { calculateProductivity, calculateGain } from '../utils/utils';
@@ -10,55 +12,8 @@ const infoMapStyle = {
   height: '300px',
 };
 
-interface EquipmentStateHistory {
-  date: string;
-  equipmentStateId: string;
-}
 
-interface Productivity {
-  productivity: number;
-  hoursWorked: number;
-}
-
-interface EquipmentState {
-  id: string;
-  name: string;
-  color: string;
-}
-
-interface HourlyEarnings {
-  equipmentStateId: string;
-  value: number;
-}
-
-interface EquipmentModel {
-  id: string;
-  hourlyEarnings?: { equipmentStateId: string; value: number }[];
-}
-
-interface Equipment {
-  id: string;
-  name: string;
-  equipmentModelId: string;
-  model?: string; 
-  lastState: EquipmentState;
-  lastPosition?: { lat: number; lon: number }; 
-  stateHistory: EquipmentStateHistory[];
-  modelHourlyEarnings?: HourlyEarnings[];
-  positionHistory: { lat: number; lon: number; date: string }[];
-  selectedEquipment?: Equipment;
-}
-
-interface ProductivityResult {
-  productivity: number;
-  hoursWorked: number;
-}
-
-interface GainResult {
-  totalGain: number;
-}
-
-const Map: React.FC<{ selectedEquipment: Equipment }> = ({ selectedEquipment }) => {
+const Map: React.FC<any> = ({ selectedEquipment }) => {
   const { selectedDate } = useEquipmentState();
 
   return (
@@ -73,18 +28,24 @@ const Map: React.FC<{ selectedEquipment: Equipment }> = ({ selectedEquipment }) 
 
       <h5>Trajeto no Mapa:</h5>
       {selectedEquipment.lastPosition && (
-        <GoogleMap mapContainerStyle={infoMapStyle} center={{ lat: selectedEquipment.lastPosition.lat, lng: selectedEquipment.lastPosition.lon }} zoom={10}>
+        <div className="google-map">
+          <GoogleMap mapContainerStyle={infoMapStyle} center={{ lat: selectedEquipment.lastPosition.lat, lng: selectedEquipment.lastPosition.lon }} zoom={10}>
           <Polyline
-            path={selectedEquipment.positionHistory.map((pos) => ({
-              lat: pos.lat,
-              lng: pos.lon
-            }))}
-            options={{ strokeColor: '#FF0000', strokeOpacity: 0.8, strokeWeight: 2 }}
-          />
-        </GoogleMap>
+              path={selectedEquipment.positionHistory.flatMap((position: any) =>
+                position.positions.map((pos: any) => ({
+                  lat: pos.lat,
+                  lng: pos.lon
+                }))
+              )}
+              options={{ strokeColor: '#FF0000', strokeOpacity: 0.8, strokeWeight: 2 }}
+            />
+          </GoogleMap>
+        </div>
       )}
 
-      <HistoryPositions selectedEquipment={selectedEquipment} />
+      <div className="history-container">
+        <HistoryPositions selectedEquipment={selectedEquipment} />
+      </div>
     </div>
   );
 };
