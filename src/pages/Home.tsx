@@ -56,7 +56,7 @@ const Home: React.FC = () => {
     <div id="centralizar" >
       <Filtered equipments={equipments} equipmentStates={equipmentStates} availableDates={availableDates} setSelectedDate={setSelectedDate} setSelectedStateFilter={setSelectedStateFilter} setSelectedEquipmentFilter={setSelectedEquipmentFilter} selectedEquipmentFilter={selectedEquipmentFilter} selectedDate={selectedDate} selectedStateFilter={ selectedStateFilter} />
 
-      <LoadScript googleMapsApiKey="">
+      <LoadScript googleMapsApiKey="AIzaSyBr3TmOoj3mKGAISSETNPIsBXh7WoVnew8">
         <GoogleMap mapContainerStyle={containerStyle} center={{ lat: -19.126536, lng: -45.947756 }} zoom={13}>
         {filteredEquipments(equipments, selectedEquipmentFilter, selectedStateFilter, selectedDate).map((equipment: any, index: number) => (
           <Marker
