@@ -22,6 +22,5 @@
     "types": ["node","google.maps"]
   },
   "include": [
-    "src"
-, "eslint.json"  ]
+    "src"  ]
 }
