@@ -2,6 +2,12 @@
 
 Este projeto foi desenvolvido como parte do desafio de frontend, com foco no acompanhamento de ativos florestais. O objetivo principal é fornecer uma plataforma interativa para visualizar e gerenciar ativos utilizados em atividades florestais, exibindo informações de localização e histórico das situações dos ativos em um mapa dinâmico.
 
+# Video do Drive
+
+Assista ao vídeo clicando no link abaixo:
+
+[Video do Projeto](https://drive.google.com/file/d/1s40nJ9ztqiGXFPJBhfktgWyATBbzYJFv/view?usp=drive_link)
+
 ## 🚀 Funcionalidades Implementadas
 
 ### Localizações dos Ativos
