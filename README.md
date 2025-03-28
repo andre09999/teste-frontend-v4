@@ -8,6 +8,9 @@ Assista ao vídeo clicando no link abaixo:
 
 [Video do Projeto](https://drive.google.com/file/d/1s40nJ9ztqiGXFPJBhfktgWyATBbzYJFv/view?usp=drive_link)
 
+[Realizado Deploy](https://testefrontendv4.netlify.app/)
+
+
 ## 🚀 Funcionalidades Implementadas
 
 ### Localizações dos Ativos
